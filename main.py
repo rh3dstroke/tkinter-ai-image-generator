@@ -1,12 +1,19 @@
-import customtkinter as ctk # pip install customtkinter
-import tkinter
+import customtkinter as ctk    # customtkinter      5.2.2  
+import tkinter                 # tkinter            0.1.0
 import os
-import openai
-from PIL import Image, ImageTk
-import requests, io
+import openai                  # openai             0.28.0 
+from PIL import Image, ImageTk # pillow             10.2.0
+import requests, io            # requests           2.31.0
 
 def generate():
-    openai.api_key = os.getenv("OPENAI_API_KEY")
+    api_key = os.getenv("OPENAI_API_KEY")
+    # Check if the API key was successfully retrieved
+    if api_key is None:
+        raise ValueError("OPENAI_API_KEY environment variable not found.")
+    else:
+        # Set the API key for the OpenAI package
+        openai.api_key = api_key
+        print("OPENAI_API_KEY found and set successfully!")
     user_prompt = prompt_entry.get("0.0", tkinter.END)
     user_prompt += "in style: " + style_dropdown.get()
 
